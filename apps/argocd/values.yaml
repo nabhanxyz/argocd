@@ -20,3 +20,10 @@ applicationSet:
 crds:
   # -- Install and upgrade CRDs
   install: true
+
+configs:
+  cm:
+    accounts.mike: apikey, login
+  rbac:
+    policy.csv: |
+      g, mike, role:admin
