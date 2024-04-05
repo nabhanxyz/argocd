@@ -15,7 +15,7 @@ spec:
     helm:
       releaseName: ingress-nginx
       valueFiles:
-      - $values/apps/argocd/values.yaml
+      - $values/apps/ingress-nginx/values.yaml
   - repoURL: https://github.com/nabhanxyz/argocd.git
     targetRevision: main
     ref: values
