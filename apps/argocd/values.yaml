@@ -1,3 +1,6 @@
+global:
+  domain: argocd.nabhan.xyz
+
 redis-ha:
   enabled: true
 
@@ -8,6 +11,13 @@ server:
   autoscaling:
     enabled: true
     minReplicas: 1
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 
 repoServer:
   autoscaling:
@@ -24,6 +34,7 @@ crds:
 configs:
   cm:
     accounts.mike: apikey, login
+    server.insecure: "true"
   rbac:
     policy.csv: |
       g, mike, role:admin
