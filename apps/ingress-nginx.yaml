@@ -14,6 +14,8 @@ spec:
     targetRevision: 4.9.1
     helm:
       releaseName: ingress-nginx
+      valueFiles:
+      - $values/apps/argocd/values.yaml
   - repoURL: https://github.com/nabhanxyz/argocd.git
     targetRevision: main
     ref: values
