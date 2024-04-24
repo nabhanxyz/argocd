@@ -1,0 +1,14 @@
+global:
+  enabled: true
+  namespace: vault
+injector:
+  enabled: true
+
+server:
+  ha:
+    enabled: true
+    raft:
+      enabled: true
+
+ui:
+  enabled: true
