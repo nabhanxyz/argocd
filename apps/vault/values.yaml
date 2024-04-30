@@ -12,3 +12,9 @@ server:
 
 ui:
   enabled: true
+
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  hosts:
+  - host: vault.nabhan.xyz
