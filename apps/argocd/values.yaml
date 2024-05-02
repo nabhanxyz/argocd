@@ -8,6 +8,8 @@ controller:
   replicas: 1
 
 server:
+  config:
+    url: https://argocd.nabhan.xyz
   autoscaling:
     enabled: true
     minReplicas: 1
@@ -35,6 +37,27 @@ configs:
   cm:
     accounts.mike: apikey, login
     server.insecure: "true"
+    dex.config: |
+      connectors:
+        - type: oidc
+          name: authentik
+          id: authentik
+          config:
+            insecureEnableGroups: true
+            getUserInfo: true
+            issuer: $argocd-oauth:oidc.authentik.oauthURL
+            clientID: $argocd-oauth:oidc.authentik.clientID
+            clientSecret: $argocd-oauth:oidc.authentik.clientSecret
+            scopes:
+              - openid
+              - profile
+              - email
+
+
   rbac:
     policy.csv: |
       g, mike, role:admin
+      g, admin, role:admin
+      g, infra, role:admin
+
+    policy.default: role:readonly
