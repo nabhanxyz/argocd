@@ -1,0 +1,53 @@
+authentik:
+  error_reporting:
+    enabled: true
+
+postgresql:
+  enabled: true
+  # primary:
+  #   persistence:
+  #     enabled: true
+  #     storageclass: linode-block-storage-retain
+  auth:
+    existingSecret: authentik-env
+    secretKeys:
+      adminPasswordKey: AUTHENTIK_POSTGRESQL__PASSWORD
+      userPasswordKey: AUTHENTIK_POSTGRESQL__PASSWORD
+      replicationPasswordKey: AUTHENTIK_POSTGRESQL__PASSWORD
+
+redis:
+  enabled: true
+
+server:
+  envFrom:
+  - secretRef:
+      name: authentik-env
+  - secretRef:
+      name: authentik-email
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+    - auth.nabhan.xyz
+
+worker:
+  replicas: 2
+  env:
+  - name: AUTHENTIK_SECRET_KEY
+    valueFrom:
+      secretKeyRef:
+        name: authentik-env
+        key: AUTHENTIK_SECRET_KEY
+  - name: AUTHENTIK_POSTGRESQL__PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: authentik-env
+        key: AUTHENTIK_POSTGRESQL__PASSWORD
+  envFrom:
+  - secretRef:
+      name: authentik-email
+
+  # envFrom:
+  # - secretRef:
+  #     name: authentik-env
+
