@@ -9,12 +9,13 @@ server:
     enabled: true
     raft:
       enabled: true
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+    - host: vault.nabhan.xyz
 
 ui:
   enabled: true
 
-ingress:
-  enabled: true
-  ingressClassName: nginx
-  hosts:
-  - host: vault.nabhan.xyz
+
