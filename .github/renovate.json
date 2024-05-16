@@ -1,5 +1,0 @@
-{
-    "argocd": {
-      "fileMatch": ["argocd/.+\\.yaml$"]
-    }
-}
