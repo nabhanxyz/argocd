@@ -12,9 +12,6 @@ spec:
   - repoURL: https://pkgs.tailscale.com/helmcharts
     chart: tailscale-operator
     targetRevision: 1.66.4
-  - repoURL: https://github.com/nabhanxyz/argocd.git
-    targetRevision: main
-    ref: values
   syncPolicy:
     automated:
       prune: false # Specifies if resources should be pruned during auto-syncing ( false by default ).
