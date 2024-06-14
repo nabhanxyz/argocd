@@ -14,6 +14,10 @@ server:
     ingressClassName: nginx
     hosts:
     - host: vault.nabhan.xyz
+  service:
+    active:
+      annotations:
+        tailscale.com/expose: "true"
 
 ui:
   enabled: true
