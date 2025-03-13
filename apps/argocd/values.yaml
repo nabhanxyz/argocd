@@ -1,9 +1,6 @@
 global:
   domain: argocd.nabhan.xyz
 
-redis-ha:
-  enabled: true
-
 controller:
   replicas: 1
 
@@ -23,7 +20,7 @@ server:
 
 repoServer:
   autoscaling:
-    enabled: true
+    enabled: false
     minReplicas: 1
 
 applicationSet:
