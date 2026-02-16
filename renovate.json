@@ -1,9 +1,67 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "labels": ["renovate"],
+  "extends": [
+    "config:recommended"
+  ],
+  "labels": ["renovate", "dependencies"],
+  "baseBranches": ["main"],
   "argocd": {
-      "fileMatch": ["argocd/.+\\.yaml$"]
+    "fileMatch": ["apps/.+\\.yaml$"]
+  },
+  "helm-values": {
+    "fileMatch": ["apps/.+/values\\.yaml$"]
+  },
+  "kubernetes": {
+    "fileMatch": ["apps/.+\\.yaml$"]
+  },
+  "packageRules": [
+    {
+      "description": "Group all ArgoCD-related updates",
+      "matchDatasources": ["helm"],
+      "matchPackageNames": ["argo-cd"],
+      "groupName": "argocd"
     },
-    "baseBranches": ["main"],
-  "autodiscover": true
+    {
+      "description": "Group all vault-related updates",
+      "matchDatasources": ["helm"],
+      "matchPackageNames": ["vault"],
+      "groupName": "vault"
+    },
+    {
+      "description": "Group ingress-nginx updates",
+      "matchDatasources": ["helm"],
+      "matchPackageNames": ["ingress-nginx"],
+      "groupName": "ingress-nginx"
+    },
+    {
+      "description": "Group external-secrets updates",
+      "matchDatasources": ["helm"],
+      "matchPackageNames": ["external-secrets"],
+      "groupName": "external-secrets"
+    },
+    {
+      "description": "Separate major updates for manual review",
+      "matchUpdateTypes": ["major"],
+      "automerge": false,
+      "labels": ["renovate", "dependencies", "major-update"]
+    },
+    {
+      "description": "Auto-merge patch updates after CI passes",
+      "matchUpdateTypes": ["patch"],
+      "automerge": false,
+      "labels": ["renovate", "dependencies", "patch-update"]
+    }
+  ],
+  "vulnerabilityAlerts": {
+    "labels": ["security", "renovate"],
+    "automerge": false
+  },
+  "schedule": ["every weekend"],
+  "timezone": "America/New_York",
+  "commitMessagePrefix": "chore(deps):",
+  "separateMajorMinor": true,
+  "separateMultipleMajor": true,
+  "prConcurrentLimit": 5,
+  "prCreation": "not-pending",
+  "rebaseWhen": "behind-base-branch"
 }
