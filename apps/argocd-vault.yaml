@@ -25,6 +25,7 @@ spec:
       allowEmpty: false # Allows deleting all application resources during automatic syncing ( false by default ).   
     syncOptions:
     - CreateNamespace=true
+    - ServerSideApply=true
   ignoreDifferences:
   - group: admissionregistration.k8s.io
     kind: MutatingWebhookConfiguration
